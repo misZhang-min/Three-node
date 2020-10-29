@@ -1,0 +1,45 @@
+mobx
+
+
+mobx可以代替redux
+
+cnpm install mobx --save
+cnpm install mobx-react --save
+
+mobx 提供了很多的辅助方法 observable 、autorun、computed、action
+
+observable 声明状态 如：string 、num、Array、obj
+observable声明的时候需要用到装饰器
+
+配置Mobx装饰器的地址：https://www.cnblogs.com/zhourongcode/p/9875286.html
+
+computed 定义的时候也需要用到装饰器，可以计算计算数据。用到它的时候会直接返回return 出来的数值
+action       定义的时候也需要用到装饰器，可以修改observable声明的状态
+例子：
+           在类里面使用
+	class Mobx {
+	     @observable name;   \\用observable声明属性状态
+	     @observable prize; 
+	     constructor() { 
+	          this.name = ' lzw ';
+	          this.prize = 20;	   
+     	      }
+	      
+	      @computed  get mobxPrize (  ) {   //用computed声明计算属性
+		return this.prize  * 10 ;	
+	       }
+	      
+	      @action changeName (  ) {
+	     	this.name = ' 李正旺 '
+	      }
+	}
+      
+	export default Mobx
+	
+	在最大组件App里面用mobx-react提供的Provide包裹一下，将定义的Mobx传递过去
+	在每个组件想要使用的时候如何引用Mobx？
+		这时mobx-react包里面提供了两个辅助方法：inject、observer
+			在该组件最外层用装饰器的方法调用一下inject和observer
+				@inject( ' home ', ' main ' ) // 可以让该组件使用Mobx，传递的参数就是我们自己书写的Mobx的仓库名字，可以有多个
+				@observer // 让我们的组件变成响应式的组件
+		
